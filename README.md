@@ -47,3 +47,4 @@ the cli-container can be used in IDEs like PHPStorm for debugging testing and wi
 - add proxy/fullpage-caching to nginx
 - add customized exceptions and errorhandling in repository, service & handler incl. a lot of tests (tdd is here nice to use)
 - add a product-valueobject for the demo, cause its always nice and safe to use data in them
+- add a demo-storage(maybe inmemory) for the repository to add crud-functions there
