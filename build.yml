@@ -1,0 +1,23 @@
+version: "3"
+services:
+  php-cli:
+    build: docker/php-xdebug
+    container_name: project-php-cli
+    environment:
+      PHP_EXTENSION_XDEBUG: 1
+    command: RUN pecl install xdebug && docker-php-ext-enable xdebug
+    volumes:
+      - .:/app
+    networks:
+      - my-network-name
+
+  composer:
+    image: composer:latest
+    container_name: project-composer
+    volumes:
+      - .:/app
+    networks:
+      - my-network-name
+
+networks:
+  my-network-name:

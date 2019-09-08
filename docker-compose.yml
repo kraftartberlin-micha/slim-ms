@@ -1,0 +1,24 @@
+version: "3"
+services:
+  nginx:
+    image: nginx:latest
+    container_name: project-nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/app
+      - ./docker/resources/nginx/site.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - my-network-name
+
+  php-fpm:
+    image: php:7.3-fpm
+    container_name: project-php-fpm
+    volumes:
+      - .:/app
+      - ./docker/resources/php/php.ini:/usr/local/etc/php/conf.d/custom.ini
+    networks:
+      - my-network-name
+
+networks:
+  my-network-name:
