@@ -1,5 +1,5 @@
 # slim-ms
-A small clean fast PHP-Microservice 
+A small clean fast PHP-Microservice with no dependencies
 
 (docker, nginx, php7.3.9, composer, unittest, ..)
 
@@ -18,17 +18,13 @@ Feel free to fork and change/add/remove what you want
 
 I did this because a lot of guys ask me to see some code from me on github again and again ;) so i spend 4hours for this state, created this account and push it. My english is bad but i like to get feedback always and will answer if i will find some time.
 
-## installation
-### systems
-mac/linux: install docker, clone repo (today untested, but should work)
-
-windows7: install docker toolbox and run `make dockerize`
-
-windows8/10: idk (give me feedback pls)
-
-### makefile commands
+## makefile commands
 
 run `make composer` to  install vendor
+
+run `make composer_update` to  update vendor
+
+run `make dockerize` for windows7 (toolbox)
 
 run `make startup` to run nginx+php-fpm containers. after this you can access the service with browser, postman, ...
 
@@ -48,3 +44,6 @@ the cli-container can be used in IDEs like PHPStorm for debugging testing and wi
 - maybe remove the service-layer(yagni), idea was to inject a validator and do some stuff with data from repo before we send it to requesthandler 
   - need to find a middleway between a demo and a blank version
 - add some code-sniffer/analyser also with a make-cmd
+- add proxy/fullpage-caching to nginx
+- add customized exceptions and errorhandling in repository, service & handler incl. a lot of tests (tdd is here nice to use)
+- add a product-valueobject for the demo, cause its always nice and safe to use data in them
