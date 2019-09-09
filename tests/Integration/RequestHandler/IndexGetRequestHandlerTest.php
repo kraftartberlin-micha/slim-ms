@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Project\Tests\Integration;
+namespace Project\Tests\Integration\RequestHandler;
 
 use PHPUnit\Framework\TestCase;
 use Project\Http\Request;
@@ -26,7 +26,6 @@ class IndexGetRequestHandlerTest extends TestCase
     public function setUp(): void
     {
         $_SERVER = ['REQUEST_METHOD' => 'GET', 'REQUEST_URI' => 'index'];
-        $this->testResponseString = 'test';
         $this->request = new Request();
         $this->response = new Response();
     }

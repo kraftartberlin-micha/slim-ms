@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Project\Tests\Unit;
+namespace Project\Tests\Unit\RequestHandler;
 
 use Exception;
 use PHPUnit\Framework\TestCase;

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Project\Tests\Integration;
+namespace Project\Tests\Integration\RequestHandler;
 
 use PHPUnit\Framework\TestCase;
 use Project\Http\Request;

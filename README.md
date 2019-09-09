@@ -34,9 +34,13 @@ run `make stop` to stop all containers
 
 run `make restart` to stop and start all containers again
 
-run `make testing` to run unit-, integration- and systemtests in a cli-container with xdebug. 
+run `make phpunit` to start unit-, integration- and systemtests in a cli-container with xdebug. 
 - coverage will be generated.
 - the cli-container can be used in IDEs like PHPStorm for debugging, testing and will display coverage too.
+
+run `make phpstan` to start codeanalyzer in src and tests
+
+run `make testing` to start phpunit and phpstan in one command
 
 ### working demo-endpoints
 - `/` or `everything that not matches` with `GET` responses `index` 
@@ -46,9 +50,9 @@ run `make testing` to run unit-, integration- and systemtests in a cli-container
 
 ## next steps
 - refactoring routing 
-- add some code-sniffer/analyser also with a make-cmd
 - add proxy/fullpage-caching to nginx for special pages
 - implement PUT requests
 - change crappy test-repository to something near reality. maybe i add redis to this, but i dont want to choose too much for you
 - add psr-http-messages interface  
 - change valueobject-creation to static
+- change phpunit to docker container

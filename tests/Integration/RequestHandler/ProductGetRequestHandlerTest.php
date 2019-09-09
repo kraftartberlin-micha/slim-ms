@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Project\Tests\Integration;
+namespace Project\Tests\Integration\RequestHandler;
 
 use PHPUnit\Framework\TestCase;
 use Project\Http\Request;
@@ -32,7 +32,6 @@ class ProductGetRequestHandlerTest extends TestCase
 
     public function setUp(): void
     {
-        $this->testResponseString = 'test';
         $_SERVER = ['REQUEST_METHOD' => 'GET', 'REQUEST_URI' => 'product'];
         $this->request = new Request();
         $this->response = new Response();

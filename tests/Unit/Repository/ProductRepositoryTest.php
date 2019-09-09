@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Project\Tests\Unit;
+namespace Project\Tests\Unit\Repository;
 
 use PHPUnit\Framework\TestCase;
 use Project\Exceptions\ProductNotFoundException;
@@ -121,7 +121,10 @@ class ProductRepositoryTest extends TestCase
         $this->productRepository->get($this->testId);
     }
 
-    private function getProductMock($withId = false) :Product
+    /**
+     * @return \PHPUnit\Framework\MockObject\MockObject|Product
+     */
+    private function getProductMock($withId = false)
     {
         $productname = $this->createMock(ProductName::class);
         $productname->method('getString')->willReturn('Name');
