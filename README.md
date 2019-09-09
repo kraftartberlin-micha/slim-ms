@@ -1,7 +1,7 @@
 # slim-ms
-A small clean fast PHP-Microservice with no dependencies
+A small clean fast and simple PHP-Microservice with no dependencies
 
-(docker, nginx, php7.3.9, composer, unittest, ..)
+(docker, nginx, php7.3.9, composer, unittest, cleancode, psr2+4, ..)
 
 Only for personal tests or commercial internal projects or as a little help to start your own shit
 
@@ -16,25 +16,38 @@ Its easy to add/develop something like:
 
 Feel free to fork and change/add/remove what you want
 
-I did this because a lot of guys ask me to see some code from me on github again and again ;) so i spend 4hours for this state, created this account and push it. My english is bad but i like to get feedback always and will answer if i will find some time.
+## introduction
 
-## makefile commands
+### flow
+- startpoint is index.php in public
+- loading autoloader and factory
+- calls requesthandler to handle request
 
-run `make composer` to  install vendor
+### architecture
+- factory to create & inject classes
+- router to call correct requesthandler
+- requesthandler do stuff with request and return response like demo
+  - using a service with a repository to deliver data (see comming son, maybe this layer will droped)
 
-run `make composer_update` to  update vendor
+### makefile commands
 
-run `make dockerize` for windows7 (toolbox)
+run `make composer` to run install vendor with composer-container
 
-run `make startup` to run nginx+php-fpm containers. after this you can access the service with browser, postman, ...
+run `make composer_update` to  update vendor with composer-container
+
+run `make dockerize` for windows7 
+- starts toolbox/docker-machine
+
+run `make startup` to run nginx+php-fpm containers.
+- after this you can access the service with browser, postman, ...
 
 run `make stop` to stop all containers
 
 run `make restart` to stop and start all containers again
 
-run `make testing` to run unit-, integration- and systemtests in a cli-container with xdebug. coverage will be generated.
-
-the cli-container can be used in IDEs like PHPStorm for debugging testing and will display coverage too.
+run `make testing` to run unit-, integration- and systemtests in a cli-container with xdebug. 
+- coverage will be generated.
+- the cli-container can be used in IDEs like PHPStorm for debugging, testing and will display coverage too.
 
 ## comming soon
 - refactoring routing (soc, srp, ..) maybe also with a config
