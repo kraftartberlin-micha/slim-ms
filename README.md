@@ -51,3 +51,4 @@ run `make testing` to run unit-, integration- and systemtests in a cli-container
 - implement PUT requests
 - change crappy test-repository to something near reality. maybe i add redis to this, but i dont want to choose too much for you
 - add psr-http-messages interface  
+- change valueobject-creation to static
