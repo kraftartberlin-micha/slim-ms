@@ -1,8 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Project\Tests\Unit;
+namespace Project\Tests\Unit\Http;
 
 use PHPUnit\Framework\TestCase;
+use Project\Exceptions\UnsupportedStatusCodeException;
 use Project\Http\Response;
 
 /**
@@ -32,4 +33,20 @@ class ResponseTest extends TestCase
         TestCase::assertEquals($this->testString, $this->response->getBody());
     }
 
+    public function testSetNonExistsStatusCodeShouldThrowException()
+    {
+        $this->expectException(UnsupportedStatusCodeException::class);
+        $this->response->setStatus(1);
+    }
+
+    public function testCanSetAndGetExistsStatusCode()
+    {
+        $this->response->setStatus(500);
+        TestCase::assertEquals(500, $this->response->getStatus());
+    }
+
+    public function testStatusCodeIsDefaultOk()
+    {
+        TestCase::assertEquals(200, $this->response->getStatus());
+    }
 }

@@ -5,7 +5,7 @@ namespace Project\Exceptions;
 
 use Exception;
 
-class ProductDescriptionIsEmptyException extends Exception
+class ProductPriceInCentsIsNegativeException extends Exception
 {
 
 }

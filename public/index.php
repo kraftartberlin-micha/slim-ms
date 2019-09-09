@@ -5,4 +5,6 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use Project\Factory;
 $factory = new Factory();
-echo $factory->requestHandler()->route()->getBody();
+$response = $factory->requestHandler()->route();
+http_response_code($response->getStatus());
+echo $response->getBody();

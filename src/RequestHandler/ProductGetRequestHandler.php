@@ -6,6 +6,7 @@ namespace Project\RequestHandler;
 use Project\Http\Request;
 use Project\Http\Response;
 use Project\Repository\ProductRepository;
+use Throwable;
 
 class ProductGetRequestHandler implements RequestHandlerInterface
 {
@@ -19,9 +20,15 @@ class ProductGetRequestHandler implements RequestHandlerInterface
         $this->productRepository = $productRepository;
     }
 
-    public function handle(Request $request, Response $response):Response
+    public function handle(Request $request, Response $response): Response
     {
-        $response->setBody(json_encode($this->productRepository->getAll(true)));
+        try {
+            $response->setBody(json_encode($this->productRepository->getAll(true)));
+        } catch (Throwable $throwable) {
+            error_log($throwable->getMessage());
+            $response->setStatus(Response::SERVER_ERROR);
+        }
+
         return $response;
     }
 }

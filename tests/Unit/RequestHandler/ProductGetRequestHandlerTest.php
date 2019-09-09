@@ -2,6 +2,7 @@
 
 namespace Project\Tests\Unit;
 
+use Exception;
 use PHPUnit\Framework\TestCase;
 use Project\Http\Request;
 use Project\Http\Response;
@@ -38,17 +39,26 @@ class ProductGetRequestHandlerTest extends TestCase
         $this->testResponseString = 'test';
         $this->httpRequest = $this->createMock(Request::class);
         $this->httpResponse = $this->createMock(Response::class);
-        $this->httpResponse->expects($this->once())->method('getBody')->willReturn($this->testResponseString);
-
         $this->productRepository = $this->createMock(ProductRepository::class);
-        $this->productRepository->expects($this->once())->method('getAll')->willReturn([]);
     }
 
     public function testCanHandleRequest(): void
     {
+        $this->httpResponse->expects($this->once())->method('getBody')->willReturn($this->testResponseString);
+        $this->productRepository->expects($this->once())->method('getAll')->willReturn([]);
+
         $productGetRequestHandler = new ProductGetRequestHandler($this->productRepository);
         $response = $productGetRequestHandler->handle($this->httpRequest, $this->httpResponse);
         TestCase::assertEquals($this->testResponseString, $response->getBody());
+    }
+
+    public function testHandleWithErrorsShouldSetErrorStatusCodeInResponse(): void
+    {
+        $this->productRepository->expects($this->once())->method('getAll')->willThrowException(new Exception());
+        $this->httpResponse->expects($this->once())->method('setStatus')->with(500);
+
+        $productGetRequestHandler = new ProductGetRequestHandler($this->productRepository);
+        $productGetRequestHandler->handle($this->httpRequest, $this->httpResponse);
     }
 
 }

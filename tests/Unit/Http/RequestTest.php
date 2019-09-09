@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Project\Tests\Unit;
+namespace Project\Tests\Unit\Http;
 
 use PHPUnit\Framework\TestCase;
 use Project\Http\Request;
@@ -96,5 +96,4 @@ class RequestTest extends TestCase
         $this->expectException(RuntimeException::class);
         new Request();
     }
-
 }

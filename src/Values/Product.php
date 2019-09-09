@@ -9,58 +9,49 @@ class Product
      * @var ProductId
      */
     private $productId;
+
     /**
      * @var ProductName
      */
     private $productName;
+
     /**
      * @var ProductDescription
      */
     private $productDescription;
+
     /**
-     * @var ProductPrice
+     * @var ProductPriceInCents
      */
-    private $productPrice;
+    private $productPriceInCents;
 
     public function __construct(
         ProductId $productId,
         ProductName $productName,
         ProductDescription $productDescription,
-        ProductPrice $productPrice
+        ProductPriceInCents $productPriceInCents
     ) {
         $this->productId = $productId;
         $this->productName = $productName;
         $this->productDescription = $productDescription;
-        $this->productPrice = $productPrice;
+        $this->productPriceInCents = $productPriceInCents;
     }
 
-    /**
-     * @return ProductPrice
-     */
-    public function getProductPrice(): ProductPrice
+    public function getProductPriceInCents(): ProductPriceInCents
     {
-        return $this->productPrice;
+        return $this->productPriceInCents;
     }
 
-    /**
-     * @return ProductDescription
-     */
     public function getProductDescription(): ProductDescription
     {
         return $this->productDescription;
     }
 
-    /**
-     * @return ProductName
-     */
     public function getProductName(): ProductName
     {
         return $this->productName;
     }
 
-    /**
-     * @return ProductId
-     */
     public function getProductId(): ProductId
     {
         return $this->productId;

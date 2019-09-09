@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Project\Values;
 
-use Project\Exceptions\ProductIdIsNegativeException;
+use Project\Exceptions\ProductPriceInCentsIsNegativeException;
 
-class ProductId
+class ProductPriceInCents
 {
     /**
      * @var int
@@ -13,7 +13,7 @@ class ProductId
     private $int;
 
     /**
-     * @throws ProductIdIsNegativeException
+     * @throws ProductPriceInCentsIsNegativeException
      */
     public function __construct(int $int)
     {
@@ -22,12 +22,12 @@ class ProductId
     }
 
     /**
-     * @throws ProductIdIsNegativeException
+     * @throws ProductPriceInCentsIsNegativeException
      */
     private function ensureIsNotNegative(int $int)
     {
         if($int < 0){
-            throw new ProductIdIsNegativeException('ID cant be negative!');
+            throw new ProductPriceInCentsIsNegativeException('Price cant be negative!');
         }
     }
 

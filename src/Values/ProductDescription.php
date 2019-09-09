@@ -3,39 +3,20 @@ declare(strict_types=1);
 
 namespace Project\Values;
 
-use Project\Exceptions\ProductDescriptionIsEmptyException;
-
 class ProductDescription
 {
     /**
      * @var string
      */
-    private $description;
+    private $string;
 
-    /**
-     * @throws ProductDescriptionIsEmptyException
-     */
-    public function __construct(string $description)
+    public function __construct(string $string)
     {
-        $this->ensureIsNotEmpty($description);
-        $this->description = $description;
+        $this->string = $string;
     }
 
-    /**
-     * @return string
-     */
-    public function getDescription(): string
+    public function getString(): string
     {
-        return $this->description;
-    }
-
-    /**
-     * @throws ProductDescriptionIsEmptyException
-     */
-    private function ensureIsNotEmpty(string $name)
-    {
-        if(empty(trim($name))){
-            throw new ProductDescriptionIsEmptyException('Description cant be empty!');
-        }
+        return $this->string;
     }
 }
