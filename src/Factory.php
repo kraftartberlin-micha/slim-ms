@@ -5,32 +5,32 @@ namespace Project;
 
 use Project\Http\Request;
 use Project\Http\Response;
+use Project\Mapper\ProductArrayMapper;
 use Project\Repository\ProductRepository;
 use Project\RequestHandler\IndexGetRequestHandler;
 use Project\RequestHandler\ProductGetRequestHandler;
 use Project\RequestHandler\ProductPostRequestHandler;
-use Project\Services\ProductService;
 
 class Factory
 {
     public function productPostRequestHandler(): ProductPostRequestHandler
     {
-        return new ProductPostRequestHandler($this->productService());
+        return new ProductPostRequestHandler($this->productRepository());
     }
 
     public function productGetRequestHandler(): ProductGetRequestHandler
     {
-        return new ProductGetRequestHandler($this->productService());
-    }
-
-    public function productService(): ProductService
-    {
-        return new ProductService($this->productRepository());
+        return new ProductGetRequestHandler($this->productRepository());
     }
 
     public function productRepository(): ProductRepository
     {
-        return new ProductRepository();
+        return new ProductRepository($this->productArrayMapper());
+    }
+
+    public function productArrayMapper():ProductArrayMapper
+    {
+        return new ProductArrayMapper();
     }
 
     public function indexGetRequestHandler(): IndexGetRequestHandler

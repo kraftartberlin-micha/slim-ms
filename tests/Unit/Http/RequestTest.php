@@ -41,7 +41,7 @@ class RequestTest extends TestCase
     public function setUp(): void
     {
         $this->testUri = '/';
-        $this->server = ['REQUEST_METHOD' => 'GET', 'REQUEST_URI' => $this->testUri, 'argv' => [1]];
+        $this->server = ['REQUEST_METHOD' => 'GET', 'REQUEST_URI' => $this->testUri];
         $this->serverWithoutAll = [];
         $this->serverWithoutMethod = ['REQUEST_URI' => $this->testUri];
         $this->serverWithoutUri = ['REQUEST_METHOD' => 'GET'];
@@ -68,11 +68,12 @@ class RequestTest extends TestCase
         TestCase::assertEquals($this->testUri, $httpRequest->uri());
     }
 
-    public function testCanAccessArgsIfExists(): void
+    public function testCanAccessRequestIfExists(): void
     {
         $_SERVER = $this->server;
+        $_REQUEST['test'] = 1;
         $httpRequest = new Request();
-        TestCase::assertEquals([1], $httpRequest->args());
+        TestCase::assertEquals(1, $httpRequest->request()['test']);
     }
 
     public function testEmptyServerVarShouldThrowException(): void

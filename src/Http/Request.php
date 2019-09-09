@@ -27,9 +27,9 @@ class Request
         return $this->server['REQUEST_URI'];
     }
 
-    public function args(): array
+    public function request(): array
     {
-        return $this->server['argv'] ?: [];
+        return $this->request;
     }
 
     private function ensureServerHasImportantKeysFilled($server)

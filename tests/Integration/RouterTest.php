@@ -5,12 +5,12 @@ namespace Project\Tests\Integration;
 use PHPUnit\Framework\TestCase;
 use Project\Http\Request;
 use Project\Http\Response;
+use Project\Mapper\ProductArrayMapper;
 use Project\Repository\ProductRepository;
 use Project\RequestHandler\IndexGetRequestHandler;
 use Project\RequestHandler\ProductGetRequestHandler;
 use Project\RequestHandler\ProductPostRequestHandler;
 use Project\Router;
-use Project\Services\ProductService;
 
 /**
  * @covers \Project\Router
@@ -42,9 +42,9 @@ class RouterTest extends TestCase
     {
         $this->response = new Response();
         $this->indexGetRequestHandler = new IndexGetRequestHandler();
-        $productService = new ProductService(new ProductRepository());
-        $this->productGetRequestHandler = new ProductGetRequestHandler($productService);
-        $this->productPostRequestHandler = new ProductPostRequestHandler($productService);
+        $productRepository = new ProductRepository(new ProductArrayMapper());
+        $this->productGetRequestHandler = new ProductGetRequestHandler($productRepository);
+        $this->productPostRequestHandler = new ProductPostRequestHandler($productRepository);
     }
 
     public function testCanRouteToIndex(): void
@@ -60,14 +60,15 @@ class RouterTest extends TestCase
         $_SERVER = ['REQUEST_METHOD' => 'GET', 'REQUEST_URI' => 'product'];
         $request = new Request();
         $response = $this->startRouting($request);
-        TestCase::assertEquals('get', $response->getBody());
+        TestCase::assertIsString($response->getBody());
     }
     public function testCanRouteToSaveProduct(): void
     {
         $_SERVER = ['REQUEST_METHOD' => 'POST', 'REQUEST_URI' => 'product'];
+        $_REQUEST = ['name'=>'test', 'priceInCent'=>'12345', 'description'=>'test'];
         $request = new Request();
         $response = $this->startRouting($request);
-        TestCase::assertEquals('post', $response->getBody());
+        TestCase::assertStringContainsString('12345', $response->getBody());
     }
 
     private function startRouting(Request $request): Response

@@ -14,7 +14,7 @@ restart:
 	$(MAKE) startup
 
 cleanup:
-	docker system prune
+	docker system prune -a
 
 
 testing:

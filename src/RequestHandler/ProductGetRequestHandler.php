@@ -5,23 +5,23 @@ namespace Project\RequestHandler;
 
 use Project\Http\Request;
 use Project\Http\Response;
-use Project\Services\ProductService;
+use Project\Repository\ProductRepository;
 
 class ProductGetRequestHandler implements RequestHandlerInterface
 {
     /**
-     * @var ProductService
+     * @var ProductRepository
      */
-    private $productService;
+    private $productRepository;
 
-    public function __construct(ProductService $productService)
+    public function __construct(ProductRepository $productRepository)
     {
-        $this->productService = $productService;
+        $this->productRepository = $productRepository;
     }
 
     public function handle(Request $request, Response $response):Response
     {
-        $response->setBody($this->productService->getProducts());
+        $response->setBody(json_encode($this->productRepository->getAll(true)));
         return $response;
     }
 }
