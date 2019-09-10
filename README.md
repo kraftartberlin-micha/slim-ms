@@ -39,7 +39,7 @@ run `make composer` to run install vendor with composer-containerrun `make compo
 run `make dockerize` for windows7 
 - starts toolbox/docker-machine
 
-### run service
+### run
 run `make startup` to run nginx+php-fpm containers.
 - after this you can access the service with browser, postman, ...
 - docker toolbox: http://192.168.99.100:8080
