@@ -7,6 +7,8 @@ services:
     command: RUN pecl install xdebug && docker-php-ext-enable xdebug
     volumes:
       - .:/app
+    ports:
+      - 8081:8081
     networks:
       - my-network-name
 

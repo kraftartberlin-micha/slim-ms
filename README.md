@@ -1,24 +1,36 @@
 # slim-ms
-A small clean fast and simple PHP-Microservice with no dependencies
+A small clean fast and simple PHP-Microservice
 
-(docker, nginx, php7.3.9, composer, unittest, cleancode, psr2+4, 100% coverage, ..)
+## keys
+docker, docker-compose, makefile, nginx, nginx reverse proxy(fullpagecache), browsercache, php-fpm, php-cli, composer, phpunit, single containers, 
+php7.3.9, cleancode, psr2+4, 100% coverage, phpstan, dependency injection, no dependencies to external libs/packages, 
+skeleton with small democode, not for production
 
 Only for katas, tests, internal projects or as a little help to start your own shit
 
-## introduction
+# introduction
 
-### flow
-- startpoint is index.php in public
-- loading autoloader and factory
-- calls requesthandler to handle request
+- startpoint is `index.php` in public
+- loading autoloader, factory & router
+- router calls correct requesthandler
+- requesthandler do stuff with request and return response 
 
-### architecture
-- factory to create & inject classes
-- router to call correct requesthandler
-- requesthandler do stuff with request and return response like demo
-  - using a service with a repository to deliver data (see comming son, maybe this layer will droped)
+## host
+- is different between mac/linux/w7/w8+w10
+  - w7: 192.168.99.100 (docker toolbox)
+  - linux/mac: localhost
+   
+## ports
+- 8080 for nginx 
+- 8081 for nginx reverse-proxy (fullpagecache)
 
-### makefile commands
+## endpoints
+- `/` or `/everything/that/not/matches` with `GET` will return `index` 
+- `/product` with `GET` will return all products as json 
+- `/product` with `POST` will add or update data and return all products as json
+  - for required payload check the unittests :P 
+  
+## makefile commands
 
 run `make composer` to run install vendor with composer-containerrun `make composer_update` to  update vendor with composer-container
 
@@ -42,16 +54,10 @@ run `make phpstan` to start codeanalyzer in src and tests
 
 run `make testing` to start phpunit and phpstan in one command
 
-### working demo-endpoints
-- `/` or `everything that not matches` with `GET` responses `index` 
-- `product` with `GET` responses all products as json 
-- `product` with `POST` add or update data and responses all products as json
-  - for payload check unittests 
 
 ## next steps
-- refactoring routing 
-- add proxy/fullpage-caching to nginx for special pages
-- implement PUT requests
+- refactoring routing (regexp and config)
+- implement PUT requests and some more statuscodes
 - change crappy test-repository to something near reality. maybe i add redis to this, but i dont want to choose too much for you
 - add psr-http-messages interface  
 - change valueobject-creation to static
