@@ -56,9 +56,8 @@ run `make testing` to start phpunit and phpstan in one command
 
 
 ## next steps
-- refactoring routing (regexp and config)
 - implement PUT requests and some more statuscodes
 - change crappy test-repository to something near reality. maybe i add redis to this, but i dont want to choose too much for you
 - add psr-http-messages interface  
-- change valueobject-creation to static
 - change phpunit to docker container
+- refactoring router

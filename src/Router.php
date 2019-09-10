@@ -12,31 +12,25 @@ use Project\RequestHandler\RequestHandlerInterface;
 
 class Router
 {
-
     /**
      * @var Request
      */
     private $request;
 
     /**
-     * @var IndexGetRequestHandler
-     */
-    private $indexGetRequestHandler;
-
-    /**
-     * @var ProductGetRequestHandler
-     */
-    private $productGetRequestHandler;
-
-    /**
-     * @var ProductPostRequestHandler
-     */
-    private $productPostRequestHandler;
-
-    /**
      * @var Response
      */
     private $response;
+
+    /**
+     * @var array
+     */
+    private $handler;
+
+    /**
+     * @var RequestHandlerInterface
+     */
+    private $defaultRequestHandler;
 
     public function __construct(
         Request $request,
@@ -47,36 +41,33 @@ class Router
     ) {
         $this->request = $request;
         $this->response = $response;
-        $this->indexGetRequestHandler = $indexGetRequestHandler;
-        $this->productGetRequestHandler = $productGetRequestHandler;
-        $this->productPostRequestHandler = $productPostRequestHandler;
+        $this->registerHandler('get', '/index', $indexGetRequestHandler, true);
+        $this->registerHandler('get', '/product', $productGetRequestHandler);
+        $this->registerHandler('post', '/product', $productPostRequestHandler);
     }
 
     public function route(): Response
     {
-        $handler = $this->getHandler();
-        return $handler->handle($this->request, $this->response);
+        return $this->getHandler()->handle($this->request, $this->response);
     }
 
-    private function getHandler(): RequestHandlerInterface
+    /**
+     * @return mixed|RequestHandlerInterface
+     */
+    private function getHandler()
     {
-        /**
-         * @todo: first draw, should be refactored, maybe dynamic with configfile?
-         */
-        $selected = null;
-        if (strpos(strtolower($this->request->uri()), 'product')!== false) {
-            switch (strtolower($this->request->method())) {
-                case 'post':
-                    $selected = $this->productPostRequestHandler;
-                    break;
-                case 'get':
-                default:
-                    $selected = $this->productGetRequestHandler;
-                    break;
-            }
-        } else {
-            $selected = $this->indexGetRequestHandler;
+        $method = strtolower($this->request->method());
+        $uri = strtolower($this->request->uri());
+        $paramsPos = strpos($uri, '?');
+        $action = $paramsPos === false ? $uri : substr($uri, 0, $paramsPos);
+        return $this->handler[$method][$action] ?? $this->defaultRequestHandler;
+    }
+
+    private function registerHandler($method, $uri, RequestHandlerInterface $requestHandler, bool $isDefault = false): void
+    {
+        $this->handler[strtolower($method)][strtolower($uri)] = $requestHandler;
+        if ($isDefault) {
+            $this->defaultRequestHandler = $requestHandler;
         }
-        return $selected;
     }
 }

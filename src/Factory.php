@@ -48,7 +48,7 @@ class Factory
         return new Response();
     }
 
-    public function requestHandler() :Router
+    public function router() :Router
     {
         return new Router(
             $this->request(),

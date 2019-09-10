@@ -54,7 +54,7 @@ class RouterTest extends TestCase
 
     public function testWillRoutedToIndexGetWhenNothingMatch(): void
     {
-        $this->request->expects($this->once())->method('uri')->willReturn('/');
+        $this->request->expects($this->once())->method('uri')->willReturn('/dfg');
 
         $indexGetRequestHandler = $this->createMock(IndexGetRequestHandler::class);
         $indexGetRequestHandler->expects($this->once())->method('handle')->willReturn($this->response);
@@ -90,7 +90,7 @@ class RouterTest extends TestCase
 
     public function testWillRoutedToProductGetWhenUriIsProduct(): void
     {
-        $this->request->expects($this->once())->method('uri')->willReturn('/product/');
+        $this->request->expects($this->once())->method('uri')->willReturn('/product');
         $this->request->expects($this->once())->method('method')->willReturn('get');
 
         $productGetRequestHandler = $this->createMock(ProductGetRequestHandler::class);
@@ -109,7 +109,7 @@ class RouterTest extends TestCase
 
     public function testWillRoutedToProductGetWhenUriIsProductAndPost(): void
     {
-        $this->request->expects($this->once())->method('uri')->willReturn('/product/');
+        $this->request->expects($this->once())->method('uri')->willReturn('/product');
         $this->request->expects($this->once())->method('method')->willReturn('post');
 
         $productPostRequestHandler = $this->createMock(ProductPostRequestHandler::class);

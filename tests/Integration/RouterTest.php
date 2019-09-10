@@ -49,7 +49,15 @@ class RouterTest extends TestCase
 
     public function testCanRouteToIndex(): void
     {
-        $_SERVER = ['REQUEST_METHOD' => 'GET', 'REQUEST_URI' => 'index'];
+        $_SERVER = ['REQUEST_METHOD' => 'GET', 'REQUEST_URI' => '/'];
+        $request = new Request();
+        $response = $this->startRouting($request);
+        TestCase::assertEquals('index', $response->getBody());
+    }
+
+    public function testWillRouteUnkownRouteToIndex(): void
+    {
+        $_SERVER = ['REQUEST_METHOD' => 'GET', 'REQUEST_URI' => '/im/not/correct'];
         $request = new Request();
         $response = $this->startRouting($request);
         TestCase::assertEquals('index', $response->getBody());
@@ -57,14 +65,14 @@ class RouterTest extends TestCase
 
     public function testCanRouteToProduct(): void
     {
-        $_SERVER = ['REQUEST_METHOD' => 'GET', 'REQUEST_URI' => 'product'];
+        $_SERVER = ['REQUEST_METHOD' => 'GET', 'REQUEST_URI' => '/product'];
         $request = new Request();
         $response = $this->startRouting($request);
         TestCase::assertIsString($response->getBody());
     }
     public function testCanRouteToSaveProduct(): void
     {
-        $_SERVER = ['REQUEST_METHOD' => 'POST', 'REQUEST_URI' => 'product'];
+        $_SERVER = ['REQUEST_METHOD' => 'POST', 'REQUEST_URI' => '/product'];
         $_REQUEST = ['name'=>'test', 'priceInCent'=>'12345', 'description'=>'test'];
         $request = new Request();
         $response = $this->startRouting($request);

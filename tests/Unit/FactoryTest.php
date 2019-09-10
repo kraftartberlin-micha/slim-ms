@@ -67,7 +67,7 @@ class FactoryTest extends TestCase
 
     public function testRequestHandlerCanBeCreated(): void
     {
-        $requestHandler = $this->factory->requestHandler();
+        $requestHandler = $this->factory->router();
         TestCase::assertInstanceOf(Router::class, $requestHandler);
     }
 
