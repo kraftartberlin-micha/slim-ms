@@ -2,6 +2,7 @@
 
 namespace Project\Tests\Unit\Repository;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Project\Exceptions\ProductNotFoundException;
 use Project\Mapper\ProductArrayMapper;
@@ -122,7 +123,7 @@ class ProductRepositoryTest extends TestCase
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|Product
+     * @return MockObject|Product
      */
     private function getProductMock($withId = false)
     {

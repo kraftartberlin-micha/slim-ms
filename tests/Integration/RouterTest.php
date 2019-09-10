@@ -3,6 +3,7 @@
 namespace Project\Tests\Integration;
 
 use PHPUnit\Framework\TestCase;
+use Project\Exceptions\HandlerNotFoundException;
 use Project\Http\Request;
 use Project\Http\Response;
 use Project\Mapper\ProductArrayMapper;
@@ -55,12 +56,12 @@ class RouterTest extends TestCase
         TestCase::assertEquals('index', $response->getBody());
     }
 
-    public function testWillRouteUnkownRouteToIndex(): void
+    public function testUnkownRouteShouldThrowException(): void
     {
         $_SERVER = ['REQUEST_METHOD' => 'GET', 'REQUEST_URI' => '/im/not/correct'];
         $request = new Request();
-        $response = $this->startRouting($request);
-        TestCase::assertEquals('index', $response->getBody());
+        $this->expectException(HandlerNotFoundException::class);
+        $this->startRouting($request);
     }
 
     public function testCanRouteToProduct(): void

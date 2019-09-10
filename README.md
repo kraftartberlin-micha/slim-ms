@@ -4,7 +4,7 @@ A small clean fast and simple PHP-Microservice
 ## keys
 docker, docker-compose, makefile, nginx, nginx reverse proxy(fullpagecache), browsercache, php-fpm, php-cli, composer, phpunit, single containers, 
 php7.3.9, cleancode, psr2+4, 100% coverage, phpstan, dependency injection, no dependencies to external libs/packages, 
-skeleton with small democode, not for production
+selfwritten skeleton with small democode, 100% free, not for production or at own risk =P
 
 Only for katas, tests, internal projects or as a little help to start your own shit
 
@@ -21,7 +21,7 @@ Only for katas, tests, internal projects or as a little help to start your own s
   - linux/mac: localhost
    
 ## ports
-- 8080 for nginx 
+- 8080 for nginx (without cache - surf this port while developing)
 - 8081 for nginx reverse-proxy (fullpagecache)
 
 ## endpoints
@@ -32,11 +32,14 @@ Only for katas, tests, internal projects or as a little help to start your own s
   
 ## makefile commands
 
+### init
+
 run `make composer` to run install vendor with composer-containerrun `make composer_update` to  update vendor with composer-container
 
 run `make dockerize` for windows7 
 - starts toolbox/docker-machine
 
+### run service
 run `make startup` to run nginx+php-fpm containers.
 - after this you can access the service with browser, postman, ...
 - docker toolbox: http://192.168.99.100:8080
@@ -45,6 +48,8 @@ run `make startup` to run nginx+php-fpm containers.
 run `make stop` to stop all containers
 
 run `make restart` to stop and start all containers again
+
+### develop
 
 run `make phpunit` to start unit-, integration- and systemtests in a cli-container with xdebug. 
 - coverage will be generated.
@@ -55,9 +60,14 @@ run `make phpstan` to start codeanalyzer in src and tests
 run `make testing` to start phpunit and phpstan in one command
 
 
-## next steps
-- implement PUT requests and some more statuscodes
+# next steps
+- implement PUT requests 
+- add some more statuscodes
 - change crappy test-repository to something near reality. maybe i add redis to this, but i dont want to choose too much for you
 - add psr-http-messages interface  
 - change phpunit to docker container
 - refactoring router
+- continue integrationtests
+- start systemtest
+- improve errorhandling in requesthandler (known issue:throw in catch from setStatus)
+- change some namings

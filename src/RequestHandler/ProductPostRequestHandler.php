@@ -6,6 +6,8 @@ namespace Project\RequestHandler;
 use Project\Http\Request;
 use Project\Http\Response;
 use Project\Repository\ProductRepository;
+use Project\Values\Method;
+use Project\Values\Url;
 use Throwable;
 
 class ProductPostRequestHandler implements RequestHandlerInterface
@@ -31,5 +33,15 @@ class ProductPostRequestHandler implements RequestHandlerInterface
         }
 
         return $response;
+    }
+
+    public function getUrl(): Url
+    {
+        return new Url('/product');
+    }
+
+    public function getMethod(): Method
+    {
+        return new Method('post');
     }
 }

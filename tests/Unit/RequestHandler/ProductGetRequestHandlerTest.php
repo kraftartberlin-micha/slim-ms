@@ -3,9 +3,11 @@
 namespace Project\Tests\Unit\RequestHandler;
 
 use Exception;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Project\Http\Request;
 use Project\Http\Response;
+use Project\RequestHandler\IndexGetRequestHandler;
 use Project\RequestHandler\ProductGetRequestHandler;
 use Project\Repository\ProductRepository;
 
@@ -15,17 +17,17 @@ use Project\Repository\ProductRepository;
 class ProductGetRequestHandlerTest extends TestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|Request
+     * @var MockObject|Request
      */
     private $httpRequest;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|ProductRepository
+     * @var MockObject|ProductRepository
      */
     private $productRepository;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|Response
+     * @var MockObject|Response
      */
     private $httpResponse;
 
@@ -59,6 +61,16 @@ class ProductGetRequestHandlerTest extends TestCase
 
         $productGetRequestHandler = new ProductGetRequestHandler($this->productRepository);
         $productGetRequestHandler->handle($this->httpRequest, $this->httpResponse);
+    }
+
+    public function testCorrectUrl(){
+        $productGetRequestHandler = new ProductGetRequestHandler($this->productRepository);
+        TestCase::assertEquals('/product', $productGetRequestHandler->getUrl()->getString());
+    }
+
+    public function testCorrectMethod(){
+        $productGetRequestHandler = new ProductGetRequestHandler($this->productRepository);
+        TestCase::assertEquals('get', $productGetRequestHandler->getMethod()->getString());
     }
 
 }

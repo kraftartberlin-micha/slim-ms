@@ -9,6 +9,9 @@ use Project\RequestHandler\IndexGetRequestHandler;
 use Project\RequestHandler\ProductGetRequestHandler;
 use Project\RequestHandler\ProductPostRequestHandler;
 use Project\RequestHandler\RequestHandlerInterface;
+use Project\Values\HandlerCollection;
+use Project\Values\Method;
+use Project\Values\Url;
 
 class Router
 {
@@ -23,14 +26,9 @@ class Router
     private $response;
 
     /**
-     * @var array
+     * @var HandlerCollection
      */
-    private $handlerContainer;
-
-    /**
-     * @var RequestHandlerInterface
-     */
-    private $defaultRequestHandler;
+    private $handlerCollection;
 
     public function __construct(
         Request $request,
@@ -41,9 +39,11 @@ class Router
     ) {
         $this->request = $request;
         $this->response = $response;
-        $this->registerHandler('get', '/index', $indexGetRequestHandler, true);
-        $this->registerHandler('get', '/product', $productGetRequestHandler);
-        $this->registerHandler('post', '/product', $productPostRequestHandler);
+        $this->handlerCollection = new HandlerCollection(
+            $indexGetRequestHandler,
+            $productGetRequestHandler,
+            $productPostRequestHandler
+        );
     }
 
     public function route(): Response
@@ -52,22 +52,14 @@ class Router
     }
 
     /**
-     * @return mixed|RequestHandlerInterface
+     * @throws Exceptions\HandlerNotFoundException
+     * @throws Exceptions\MethodIsEmptyException
+     * @throws Exceptions\UrlIsEmptyException
      */
-    private function getHandler()
+    private function getHandler(): RequestHandlerInterface
     {
-        $method = strtolower($this->request->method());
-        $uri = strtolower($this->request->uri());
-        $paramsPos = strpos($uri, '?');
-        $action = $paramsPos === false ? $uri : substr($uri, 0, $paramsPos);
-        return $this->handlerContainer[$method][$action] ?? $this->defaultRequestHandler;
-    }
-
-    private function registerHandler($method, $uri, RequestHandlerInterface $requestHandler, bool $isDefault = false): void
-    {
-        $this->handlerContainer[strtolower($method)][strtolower($uri)] = $requestHandler;
-        if ($isDefault) {
-            $this->defaultRequestHandler = $requestHandler;
-        }
+        $method = new Method($this->request->method());
+        $url = new Url($this->request->uri());
+        return $this->handlerCollection->getHandler($method, $url);
     }
 }
