@@ -5,19 +5,19 @@ namespace Project\RequestHandler;
 
 use Project\Http\Request;
 use Project\Http\Response;
-use Project\Repository\ProductRepository;
-use Project\Values\Method;
-use Project\Values\Url;
+use Project\Http\Method;
+use Project\Http\Url;
+use Project\Product\Adapter\ProductAdapter;
 use Throwable;
 
 class ProductPostRequestHandler implements RequestHandlerInterface
 {
     /**
-     * @var ProductRepository
+     * @var ProductAdapter
      */
     private $productRepository;
 
-    public function __construct(ProductRepository $productRepository)
+    public function __construct(ProductAdapter $productRepository)
     {
         $this->productRepository = $productRepository;
     }

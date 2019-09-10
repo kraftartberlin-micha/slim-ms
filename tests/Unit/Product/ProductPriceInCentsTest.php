@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Project\Tests\Unit\Values;
+namespace Project\Tests\Unit\Product;
 
 use PHPUnit\Framework\TestCase;
 use Project\Exceptions\ProductPriceInCentsIsNegativeException;
-use Project\Values\ProductPriceInCents;
+use Project\Product\Values\ProductPriceInCents;
 
 /**
- * @covers \Project\Values\ProductPriceInCents
+ * @covers \Project\Product\Values\ProductPriceInCents
  */
 class ProductPriceInCentsTest extends TestCase
 {

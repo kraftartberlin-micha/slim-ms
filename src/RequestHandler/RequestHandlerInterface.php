@@ -5,8 +5,8 @@ namespace Project\RequestHandler;
 
 use Project\Http\Response;
 use Project\Http\Request;
-use Project\Values\Method;
-use Project\Values\Url;
+use Project\Http\Method;
+use Project\Http\Url;
 
 interface RequestHandlerInterface
 {

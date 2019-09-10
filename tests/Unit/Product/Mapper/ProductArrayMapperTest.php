@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Project\Tests\Unit\Mapper;
+namespace Project\Tests\Unit\Product\Mapper;
 
 use PHPUnit\Framework\TestCase;
-use Project\Mapper\ProductArrayMapper;
-use Project\Values\Product;
+use Project\Product\Mapper\ProductArrayMapper;
+use Project\Product\Values\Product;
 
 /**
- * @covers \Project\Mapper\ProductArrayMapper
+ * @covers \Project\Product\Mapper\ProductArrayMapper
  */
 class ProductArrayMapperTest extends TestCase
 {

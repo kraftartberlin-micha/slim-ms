@@ -1,20 +1,20 @@
 <?php
 declare(strict_types=1);
 
-namespace Project\Repository;
+namespace Project\Product\Adapter;
 
 use Project\Exceptions\ProductIdIsNegativeException;
 use Project\Exceptions\ProductNameIsEmptyException;
 use Project\Exceptions\ProductNotFoundException;
 use Project\Exceptions\ProductPriceInCentsIsNegativeException;
-use Project\Mapper\ProductArrayMapper;
-use Project\Values\Product;
+use Project\Product\Mapper\ProductArrayMapper;
+use Project\Product\Values\Product;
 use function count;
 
 /**
  * Stupid InMemoryTestRepository :D
  */
-class ProductRepository
+class ProductAdapter
 {
     /**
      * @var ProductArrayMapper

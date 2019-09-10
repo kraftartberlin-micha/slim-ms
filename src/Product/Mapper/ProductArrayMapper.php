@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Project\Mapper;
+namespace Project\Product\Mapper;
 
 use Project\Exceptions\ProductNameIsEmptyException;
 use Project\Exceptions\ProductPriceInCentsIsNegativeException;
-use Project\Values\Product;
-use Project\Values\ProductDescription;
-use Project\Values\ProductId;
-use Project\Values\ProductName;
-use Project\Values\ProductPriceInCents;
+use Project\Product\Values\Product;
+use Project\Product\Values\ProductDescription;
+use Project\Product\Values\ProductId;
+use Project\Product\Values\ProductName;
+use Project\Product\Values\ProductPriceInCents;
 
 class ProductArrayMapper
 {

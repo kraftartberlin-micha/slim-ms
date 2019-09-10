@@ -67,6 +67,7 @@ run `make testing` to start phpunit and phpstan in one command
 - add psr-http-messages interface  
 - change phpunit to docker container
 - refactoring router
+- add more unittests (tdd, be evil)
 - continue integrationtests
 - start systemtest
 - improve errorhandling in requesthandler (known issue:throw in catch from setStatus)

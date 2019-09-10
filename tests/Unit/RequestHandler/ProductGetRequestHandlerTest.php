@@ -7,9 +7,8 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Project\Http\Request;
 use Project\Http\Response;
-use Project\RequestHandler\IndexGetRequestHandler;
 use Project\RequestHandler\ProductGetRequestHandler;
-use Project\Repository\ProductRepository;
+use Project\Product\Adapter\ProductAdapter;
 
 /**
  * @covers \Project\RequestHandler\ProductGetRequestHandler
@@ -22,7 +21,7 @@ class ProductGetRequestHandlerTest extends TestCase
     private $httpRequest;
 
     /**
-     * @var MockObject|ProductRepository
+     * @var MockObject|ProductAdapter
      */
     private $productRepository;
 
@@ -41,7 +40,7 @@ class ProductGetRequestHandlerTest extends TestCase
         $this->testResponseString = 'test';
         $this->httpRequest = $this->createMock(Request::class);
         $this->httpResponse = $this->createMock(Response::class);
-        $this->productRepository = $this->createMock(ProductRepository::class);
+        $this->productRepository = $this->createMock(ProductAdapter::class);
     }
 
     public function testCanHandleRequest(): void

@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Project\Tests\Unit\Values;
+namespace Project\Tests\Unit\Product;
 
 use PHPUnit\Framework\TestCase;
 use Project\Exceptions\ProductNameIsEmptyException;
-use Project\Values\ProductName;
+use Project\Product\Values\ProductName;
 
 /**
- * @covers \Project\Values\ProductName
+ * @covers \Project\Product\Values\ProductName
  */
 class ProductNameTest extends TestCase
 {

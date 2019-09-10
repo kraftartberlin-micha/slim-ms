@@ -1,21 +1,21 @@
 <?php declare(strict_types=1);
 
-namespace Project\Tests\Unit\Values;
+namespace Project\Tests\Unit\RequestHandler;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Project\Http\Method;
+use Project\Http\Url;
 use Project\Exceptions\HandlerNotFoundException;
 use Project\RequestHandler\IndexGetRequestHandler;
 use Project\RequestHandler\ProductPostRequestHandler;
 use Project\RequestHandler\RequestHandlerInterface;
-use Project\Values\HandlerCollection;
-use Project\Values\Method;
-use Project\Values\Url;
+use Project\RequestHandler\RequestHandlerCollection;
 
 /**
- * @covers \Project\Values\HandlerCollection
+ * @covers \Project\RequestHandler\RequestHandlerCollection
  */
-class HandlerCollectionTest extends TestCase
+class RequestHandlerCollectionTest extends TestCase
 {
     /**
      * @var MockObject|ProductPostRequestHandler|RequestHandlerInterface
@@ -28,7 +28,7 @@ class HandlerCollectionTest extends TestCase
     private $indexGetRequestHandler;
 
     /**
-     * @var HandlerCollection
+     * @var RequestHandlerCollection
      */
     private $collection;
 
@@ -40,7 +40,7 @@ class HandlerCollectionTest extends TestCase
         $this->productPostRequestHandler = $this->createMock(ProductPostRequestHandler::class);
         $this->productPostRequestHandler = $this->setUrlAndMethod('post', '/product', $this->productPostRequestHandler);
 
-        $this->collection = new HandlerCollection($this->indexGetRequestHandler, $this->productPostRequestHandler);
+        $this->collection = new RequestHandlerCollection($this->indexGetRequestHandler, $this->productPostRequestHandler);
     }
 
     public function testCanFillHandlerCollectionAndGetAll(): void

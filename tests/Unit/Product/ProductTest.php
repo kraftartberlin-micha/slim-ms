@@ -1,16 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace Project\Tests\Unit\Values;
+namespace Project\Tests\Unit\Product;
 
 use PHPUnit\Framework\TestCase;
-use Project\Values\Product;
-use Project\Values\ProductDescription;
-use Project\Values\ProductId;
-use Project\Values\ProductName;
-use Project\Values\ProductPriceInCents;
+use Project\Product\Values\Product;
+use Project\Product\Values\ProductDescription;
+use Project\Product\Values\ProductId;
+use Project\Product\Values\ProductName;
+use Project\Product\Values\ProductPriceInCents;
 
 /**
- * @covers \Project\Values\Product
+ * @covers \Project\Product\Values\Product
  */
 class ProductTest extends TestCase
 {

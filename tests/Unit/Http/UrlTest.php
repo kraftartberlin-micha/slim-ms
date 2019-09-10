@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Project\Tests\Unit\Values;
+namespace Project\Tests\Unit\Http;
 
 use PHPUnit\Framework\TestCase;
 use Project\Exceptions\UrlIsEmptyException;
-use Project\Values\Url;
+use Project\Http\Url;
 
 /**
- * @covers \Project\Values\Url
+ * @covers \Project\Http\Url
  */
 class UrlTest extends TestCase
 {

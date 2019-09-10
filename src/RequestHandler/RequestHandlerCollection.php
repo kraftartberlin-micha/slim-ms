@@ -1,12 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Project\Values;
+namespace Project\RequestHandler;
 
 use Project\Exceptions\HandlerNotFoundException;
-use Project\RequestHandler\RequestHandlerInterface;
+use Project\Http\Method;
+use Project\Http\Url;
 
-class HandlerCollection
+class RequestHandlerCollection
 {
     /**
      * @var array

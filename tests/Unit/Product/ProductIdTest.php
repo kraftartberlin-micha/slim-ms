@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Project\Tests\Unit\Values;
+namespace Project\Tests\Unit\Product;
 
 use PHPUnit\Framework\TestCase;
 use Project\Exceptions\ProductIdIsNegativeException;
-use Project\Values\ProductId;
+use Project\Product\Values\ProductId;
 
 /**
- * @covers \Project\Values\ProductId
+ * @covers \Project\Product\Values\ProductId
  */
 class ProductIdTest extends TestCase
 {

@@ -5,13 +5,10 @@ namespace Project;
 
 use Project\Http\Response;
 use Project\Http\Request;
-use Project\RequestHandler\IndexGetRequestHandler;
-use Project\RequestHandler\ProductGetRequestHandler;
-use Project\RequestHandler\ProductPostRequestHandler;
+use Project\Http\Method;
+use Project\Http\Url;
 use Project\RequestHandler\RequestHandlerInterface;
-use Project\Values\HandlerCollection;
-use Project\Values\Method;
-use Project\Values\Url;
+use Project\RequestHandler\RequestHandlerCollection;
 
 class Router
 {
@@ -26,26 +23,25 @@ class Router
     private $response;
 
     /**
-     * @var HandlerCollection
+     * @var RequestHandlerCollection
      */
-    private $handlerCollection;
+    private $requestHandlerCollection;
 
     public function __construct(
         Request $request,
         Response $response,
-        IndexGetRequestHandler $indexGetRequestHandler,
-        ProductGetRequestHandler $productGetRequestHandler,
-        ProductPostRequestHandler $productPostRequestHandler
+        RequestHandlerCollection $requestHandlerCollection
     ) {
         $this->request = $request;
         $this->response = $response;
-        $this->handlerCollection = new HandlerCollection(
-            $indexGetRequestHandler,
-            $productGetRequestHandler,
-            $productPostRequestHandler
-        );
+        $this->requestHandlerCollection = $requestHandlerCollection;
     }
 
+    /**
+     * @throws Exceptions\HandlerNotFoundException
+     * @throws Exceptions\MethodIsEmptyException
+     * @throws Exceptions\UrlIsEmptyException
+     */
     public function route(): Response
     {
         return $this->getHandler()->handle($this->request, $this->response);
@@ -60,6 +56,6 @@ class Router
     {
         $method = new Method($this->request->method());
         $url = new Url($this->request->uri());
-        return $this->handlerCollection->getHandler($method, $url);
+        return $this->requestHandlerCollection->getHandler($method, $url);
     }
 }

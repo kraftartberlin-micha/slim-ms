@@ -6,11 +6,12 @@ use PHPUnit\Framework\TestCase;
 use Project\Exceptions\HandlerNotFoundException;
 use Project\Http\Request;
 use Project\Http\Response;
-use Project\Mapper\ProductArrayMapper;
-use Project\Repository\ProductRepository;
+use Project\Product\Mapper\ProductArrayMapper;
+use Project\Product\Adapter\ProductAdapter;
 use Project\RequestHandler\IndexGetRequestHandler;
 use Project\RequestHandler\ProductGetRequestHandler;
 use Project\RequestHandler\ProductPostRequestHandler;
+use Project\RequestHandler\RequestHandlerCollection;
 use Project\Router;
 
 /**
@@ -43,7 +44,7 @@ class RouterTest extends TestCase
     {
         $this->response = new Response();
         $this->indexGetRequestHandler = new IndexGetRequestHandler();
-        $productRepository = new ProductRepository(new ProductArrayMapper());
+        $productRepository = new ProductAdapter(new ProductArrayMapper());
         $this->productGetRequestHandler = new ProductGetRequestHandler($productRepository);
         $this->productPostRequestHandler = new ProductPostRequestHandler($productRepository);
     }
@@ -85,9 +86,11 @@ class RouterTest extends TestCase
         $router = new Router(
             $request,
             $this->response,
-            $this->indexGetRequestHandler,
-            $this->productGetRequestHandler,
-            $this->productPostRequestHandler
+            new RequestHandlerCollection(
+                $this->indexGetRequestHandler,
+                $this->productGetRequestHandler,
+                $this->productPostRequestHandler
+            )
         );
         return $router->route();
     }

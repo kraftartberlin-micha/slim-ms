@@ -1,25 +1,25 @@
 <?php declare(strict_types=1);
 
-namespace Project\Tests\Unit\Repository;
+namespace Project\Tests\Unit\Product\Adapter;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Project\Exceptions\ProductNotFoundException;
-use Project\Mapper\ProductArrayMapper;
-use Project\Repository\ProductRepository;
-use Project\Values\Product;
-use Project\Values\ProductDescription;
-use Project\Values\ProductId;
-use Project\Values\ProductName;
-use Project\Values\ProductPriceInCents;
+use Project\Product\Mapper\ProductArrayMapper;
+use Project\Product\Adapter\ProductAdapter;
+use Project\Product\Values\Product;
+use Project\Product\Values\ProductDescription;
+use Project\Product\Values\ProductId;
+use Project\Product\Values\ProductName;
+use Project\Product\Values\ProductPriceInCents;
 
 /**
- * @covers \Project\Repository\ProductRepository
+ * @covers \Project\Product\Adapter\ProductAdapter
  */
-class ProductRepositoryTest extends TestCase
+class ProductAdapterTest extends TestCase
 {
     /**
-     * @var ProductRepository
+     * @var ProductAdapter
      */
     private $productRepository;
 
@@ -37,7 +37,7 @@ class ProductRepositoryTest extends TestCase
     {
         $this->testId = 1;
         $this->testPrice = 1234;
-        $this->productRepository = new ProductRepository(new ProductArrayMapper());
+        $this->productRepository = new ProductAdapter(new ProductArrayMapper());
     }
 
     public function testCanDeliverAllData(): void

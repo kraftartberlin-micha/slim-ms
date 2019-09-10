@@ -7,12 +7,11 @@ use PHPUnit\Framework\TestCase;
 use Project\Exceptions\HandlerNotFoundException;
 use Project\Http\Request;
 use Project\Http\Response;
+use Project\RequestHandler\RequestHandlerCollection;
 use Project\Router;
 use Project\RequestHandler\IndexGetRequestHandler;
 use Project\RequestHandler\ProductGetRequestHandler;
 use Project\RequestHandler\ProductPostRequestHandler;
-use Project\Values\Method;
-use Project\Values\Url;
 
 /**
  * @covers \Project\Router
@@ -45,14 +44,9 @@ class RouterTest extends TestCase
     private $response;
 
     /**
-     * @var MockObject|Method
+     * @var MockObject|RequestHandlerCollection
      */
-    private $method;
-
-    /**
-     * @var MockObject|Url
-     */
-    private $url;
+    private $requestHandlerCollection;
 
 
     public function setUp(): void
@@ -65,20 +59,18 @@ class RouterTest extends TestCase
 
         $this->request = $this->createMock(Request::class);
         $this->response = $this->createMock(Response::class);
-        $this->url = $this->createMock(Url::class);
-        $this->method = $this->createMock(Method::class);
+        $this->requestHandlerCollection = $this->createMock(RequestHandlerCollection::class);
     }
 
     public function testUnknownRoutShouldThrowException(): void
     {
+        $this->requestHandlerCollection->method('getHandler')->willThrowException(new HandlerNotFoundException());
         $this->expectException(HandlerNotFoundException::class);
         $this->setRequest('get', '/dfg');
         $router= new Router(
             $this->request,
             $this->response,
-            $this->handler['index'],
-            $this->handler['productGet'],
-            $this->handler['productPost']
+            $this->requestHandlerCollection
         );
 
         $router->route();
@@ -90,15 +82,13 @@ class RouterTest extends TestCase
 
         $indexGetRequestHandler = $this->createMock(IndexGetRequestHandler::class);
         $indexGetRequestHandler->expects($this->once())->method('handle')->willReturn($this->response);
-        $indexGetRequestHandler->expects($this->once())->method('getUrl')->willReturn($this->url);
-        $indexGetRequestHandler->expects($this->once())->method('getMethod')->willReturn($this->method);
+
+        $this->requestHandlerCollection->method('getHandler')->willReturn($indexGetRequestHandler);
 
         $router = new Router(
             $this->request,
             $this->response,
-            $indexGetRequestHandler,
-            $this->handler['productGet'],
-            $this->handler['productPost']
+            $this->requestHandlerCollection
         );
 
         $router->route();
@@ -110,15 +100,13 @@ class RouterTest extends TestCase
 
         $productGetRequestHandler = $this->createMock(ProductGetRequestHandler::class);
         $productGetRequestHandler->expects($this->once())->method('handle')->willReturn($this->response);
-        $productGetRequestHandler->expects($this->once())->method('getUrl')->willReturn($this->url);
-        $productGetRequestHandler->expects($this->once())->method('getMethod')->willReturn($this->method);
+
+        $this->requestHandlerCollection->method('getHandler')->willReturn($productGetRequestHandler);
 
         $router = new Router(
             $this->request,
             $this->response,
-            $this->handler['index'],
-            $productGetRequestHandler,
-            $this->handler['productPost']
+            $this->requestHandlerCollection
         );
 
         $router->route();
@@ -130,15 +118,13 @@ class RouterTest extends TestCase
 
         $productPostRequestHandler = $this->createMock(ProductPostRequestHandler::class);
         $productPostRequestHandler->expects($this->once())->method('handle')->willReturn($this->response);
-        $productPostRequestHandler->expects($this->once())->method('getUrl')->willReturn($this->url);
-        $productPostRequestHandler->expects($this->once())->method('getMethod')->willReturn($this->method);
+
+        $this->requestHandlerCollection->method('getHandler')->willReturn($productPostRequestHandler);
 
         $router = new Router(
             $this->request,
             $this->response,
-            $this->handler['index'],
-            $this->handler['productGet'],
-            $productPostRequestHandler
+            $this->requestHandlerCollection
         );
 
         $router->route();
@@ -148,8 +134,6 @@ class RouterTest extends TestCase
     {
         $this->request->expects($this->once())->method('method')->willReturn($method);
         $this->request->expects($this->once())->method('uri')->willReturn($url);
-        $this->url->method('getString')->willReturn($url);
-        $this->method->method('getString')->willReturn($method);
     }
 
 }

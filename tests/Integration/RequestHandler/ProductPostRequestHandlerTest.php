@@ -5,8 +5,8 @@ namespace Project\Tests\Integration\RequestHandler;
 use PHPUnit\Framework\TestCase;
 use Project\Http\Request;
 use Project\Http\Response;
-use Project\Mapper\ProductArrayMapper;
-use Project\Repository\ProductRepository;
+use Project\Product\Mapper\ProductArrayMapper;
+use Project\Product\Adapter\ProductAdapter;
 use Project\RequestHandler\ProductPostRequestHandler;
 
 /**
@@ -21,7 +21,7 @@ class ProductPostRequestHandlerTest extends TestCase
     private $request;
 
     /**
-     * @var ProductRepository
+     * @var ProductAdapter
      */
     private $productRepository;
 
@@ -36,7 +36,7 @@ class ProductPostRequestHandlerTest extends TestCase
         $_REQUEST = ['name'=>'test', 'priceInCent'=>'12345', 'description'=>'test'];
         $this->request = new Request();
         $this->response = new Response();
-        $this->productRepository = new ProductRepository(new ProductArrayMapper());
+        $this->productRepository = new ProductAdapter(new ProductArrayMapper());
     }
 
     public function testCanHandleRequest(): void

@@ -8,7 +8,7 @@ use Project\Exceptions\UnsupportedStatusCodeException;
 class Response
 {
     const HTTP_OK = 200;
-    const HTTP_CREATED = 204;
+    const NO_CONTENT = 204;
     const SERVER_ERROR = 500;
     /**
      * @var string
@@ -20,7 +20,7 @@ class Response
      */
     private $supportedCodes = [
         self::HTTP_OK,
-        self::HTTP_CREATED,
+        self::NO_CONTENT,
         self::SERVER_ERROR,
     ];
 

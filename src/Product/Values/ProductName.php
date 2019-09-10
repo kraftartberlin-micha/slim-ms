@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Project\Values;
+namespace Project\Product\Values;
 
 use Project\Exceptions\ProductNameIsEmptyException;
 

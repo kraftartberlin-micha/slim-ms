@@ -5,8 +5,8 @@ namespace Project\RequestHandler;
 
 use Project\Http\Request;
 use Project\Http\Response;
-use Project\Values\Method;
-use Project\Values\Url;
+use Project\Http\Method;
+use Project\Http\Url;
 
 class IndexGetRequestHandler implements RequestHandlerInterface
 {
