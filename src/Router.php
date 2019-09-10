@@ -25,7 +25,7 @@ class Router
     /**
      * @var array
      */
-    private $handler;
+    private $handlerContainer;
 
     /**
      * @var RequestHandlerInterface
@@ -60,12 +60,12 @@ class Router
         $uri = strtolower($this->request->uri());
         $paramsPos = strpos($uri, '?');
         $action = $paramsPos === false ? $uri : substr($uri, 0, $paramsPos);
-        return $this->handler[$method][$action] ?? $this->defaultRequestHandler;
+        return $this->handlerContainer[$method][$action] ?? $this->defaultRequestHandler;
     }
 
     private function registerHandler($method, $uri, RequestHandlerInterface $requestHandler, bool $isDefault = false): void
     {
-        $this->handler[strtolower($method)][strtolower($uri)] = $requestHandler;
+        $this->handlerContainer[strtolower($method)][strtolower($uri)] = $requestHandler;
         if ($isDefault) {
             $this->defaultRequestHandler = $requestHandler;
         }
