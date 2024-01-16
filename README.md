@@ -1,12 +1,13 @@
 # slim-ms
 A small clean fast and simple PHP-Microservice
+Edit: "old" fast written demo-code in 8 hours for a recruiting process
 
 ## keys
 docker, docker-compose, makefile, nginx, nginx reverse proxy(fullpagecache), browsercache, php-fpm, php-cli, composer, phpunit, single containers, 
 php7.3.9, cleancode, psr2+4, 100% coverage, phpstan, dependency injection, no dependencies to external libs/packages, 
 selfwritten skeleton with small democode, 100% free, not for production or at own risk =P
 
-Only for katas, tests, internal projects or as a little help to start your own shit
+Only for katas, tests, internal projects or workshops
 
 # introduction
 
